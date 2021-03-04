@@ -1,0 +1,98 @@
+public abstract class Worker {
+    private String name;
+    private double salary;
+
+    public Worker(){
+        this.name = " ";
+        this.salary = 0;
+    }
+    public Worker(String name, double salary){
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public abstract double getWeeklySalary();
+}
+
+public class HourlyWorker extends Worker{
+    private String work;
+    private int hours;
+
+    public HourlyWorker(String name, int salary, String work, int hours){ super(name, salary);
+         this.work = work;
+         this.hours = hours;
+    }
+
+    public String getWork() {
+        return work;
+    }
+    public void setWork(String work) {
+        this.work = work;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
+    @Override
+    public double getWeeklySalary() {
+        return 40 * getSalary() + 1.5 * getSalary() * (hours - 40);
+    }
+}
+
+public class SalariedWorker extends Worker{
+    private String work;
+    private double hours;
+
+    public SalariedWorker(String name, int salary, String work, double hours){ super(name, salary);
+        this.work = work;
+        this.hours = hours;
+    }
+
+    public String getWork() {
+        return work;
+    }
+    public void setWork(String work) {
+        this.work = work;
+    }
+
+    public double getHours() {
+        return (int) hours;
+    }
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
+    @Override
+    public double getWeeklySalary() {
+        return hours * getSalary();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        HourlyWorker worker1 = new HourlyWorker("Ivan", 200, "moving", 26);
+        SalariedWorker worker2 = new SalariedWorker("Vasil", 185, "cutting", 42);
+        System.out.println((worker1.getHours() + worker2.getHours()));
+        System.out.println((worker1.getHours() + worker2.getHours()) / 2);
+        System.out.println((worker1.getWeeklySalary() + worker2.getWeeklySalary()));
+        System.out.println((worker1.getWeeklySalary() + worker2.getWeeklySalary()) / 2);
+    }
+}
